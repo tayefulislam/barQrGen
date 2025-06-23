@@ -1,0 +1,50 @@
+/* body {
+  margin: 0;
+  font-family: sans-serif;
+  padding: 10px;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+button {
+  margin-right: 10px;
+  margin-bottom: 20px;
+  padding: 6px 10px;
+}
+
+.label-sheet {
+  width: 210mm;
+  height: 297mm;
+  padding: 8.4mm 8.8mm;
+  display: grid;
+  grid-template-columns: repeat(4, 48.3mm);
+  grid-template-rows: repeat(11, 25.4mm);
+  gap: 0;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+}
+
+.label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2mm;
+  box-sizing: border-box;
+  border: 1px dashed #ddd;
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .label-sheet, .label-sheet * {
+    visibility: visible;
+  }
+  .label-sheet {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+} */

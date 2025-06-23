@@ -1,0 +1,64 @@
+/* .label-sheet {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-auto-rows: 33mm;
+  gap: 2mm;
+  width: 200mm;
+  margin: 5mm auto;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.label {
+  border: 1px solid #ccc;
+  padding: 2mm;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, sans-serif;
+  font-size: 8px;
+  background: white;
+  overflow: hidden;
+}
+
+.label svg {
+  width: 23mm !important;
+  height: 23mm !important;
+}
+
+.label input {
+  width: 100%;
+  font-size: 8px;
+  padding: 2px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+@media print {
+  body {
+    margin: 0;
+  }
+
+  button, h1 {
+    display: none;
+  }
+
+  @page {
+    size: A4 portrait;
+    margin: 5mm;
+  }
+
+  .label-sheet {
+    width: 100%;
+    margin: 0;
+    gap: 2mm;
+  }
+
+  .label {
+    border: none;
+    padding: 1mm;
+    page-break-inside: avoid;
+  }
+} */
