@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { QRCodeSVG } from "qrcode.react";
 import "./Home5.css";
+import { Helmet } from "react-helmet";
 
 const Home5 = () => {
   const [pages, setPages] = useState(1); // Set how many pages you want (each has 48 labels)
   const [codes, setCodes] = useState([]);
   const [qrColor, setQrColor] = useState("#000000");
+  const [skuColor, setSKUColor] = useState("#000000");
+  const [brandColor, setBrandColor] = useState("#000000");
   const [theme, setTheme] = useState("light");
 
   useEffect(() => {
-    setCodes(Array(pages * 48).fill(""));
+    setCodes(Array(pages * 44).fill(""));
   }, [pages]);
 
   const generateHashCode = (length = 10) => {
@@ -28,7 +31,7 @@ const Home5 = () => {
   };
 
   const fillWithGeneratedCodes = () => {
-    const generated = Array.from({ length: pages * 48 }, () =>
+    const generated = Array.from({ length: pages * 44 }, () =>
       generateHashCode()
     );
     setCodes(generated);
@@ -43,72 +46,119 @@ const Home5 = () => {
   };
 
   return (
-    <div className={`home4-container ${theme}`}>
-      <h1>QR Code Label Generator</h1>
+    <>
+      {" "}
+      <Helmet>
+        <title>QR Code Label Generator - {generateHashCode(4)}</title>
+      </Helmet>
+      <div className={`home4-container ${theme}`}>
+        <h1>QR Code Label Generator</h1>
 
-      <div className="controls">
-        <label>
-          🧾 Pages:
-          <input
-            type="number"
-            min="1"
-            max="100"
-            value={pages}
-            onChange={(e) => setPages(Number(e.target.value))}
-          />
-        </label>
+        <div className="controls">
+          <label>
+            🧾 Pages:
+            <input
+              type="number"
+              min="1"
+              max="100"
+              value={pages}
+              onChange={(e) => setPages(Number(e.target.value))}
+            />
+          </label>
 
-        <button onClick={fillWithGeneratedCodes}>⚙️ Auto Generate Codes</button>
-        <button onClick={printLabels}>🖨️ Print</button>
+          <button onClick={fillWithGeneratedCodes}>
+            ⚙️ Auto Generate Codes
+          </button>
+          <button onClick={printLabels}>🖨️ Print</button>
 
-        <label>
-          🎨 QR Color:
-          <input
-            type="color"
-            value={qrColor}
-            onChange={(e) => setQrColor(e.target.value)}
-          />
-        </label>
+          <div className="color-controls">
+            {" "}
+            <label>
+              🎨 QR Color:
+              <input
+                type="color"
+                value={qrColor}
+                onChange={(e) => setQrColor(e.target.value)}
+              />
+            </label>
+            <label>
+              🎨SKU Color:
+              <input
+                type="color"
+                value={skuColor}
+                onChange={(e) => setSKUColor(e.target.value)}
+              />
+            </label>
+            <label>
+              🎨 Brand Color:
+              <input
+                type="color"
+                value={brandColor}
+                onChange={(e) => setBrandColor(e.target.value)}
+              />
+            </label>
+          </div>
 
-        {/* <button onClick={() => setTheme(theme === "light" ? "dark" : "light")}>
+          <div>
+            <h6 class="note">Note : Adobe PDF - A4 Size - 100%</h6>
+          </div>
+
+          {/* <button onClick={() => setTheme(theme === "light" ? "dark" : "light")}>
           🌗 Switch to {theme === "light" ? "Dark" : "Light"} Theme
         </button> */}
-      </div>
+        </div>
 
-      {/* Render each A4 sheet */}
-      {Array.from({ length: pages }).map((_, pageIndex) => (
-        <div className="label-sheet" key={pageIndex}>
-          {Array.from({ length: 48 }).map((_, i) => {
-            const index = pageIndex * 48 + i;
-            return (
-              <div className="label" key={index}>
-                {codes[index] ? (
-                  <>
-                    <QRCodeSVG
-                      value={codes[index]}
-                      size={64}
-                      level="H"
-                      includeMargin={false}
-                      fgColor={qrColor}
+        {/* Render each A4 sheet */}
+        {Array.from({ length: pages }).map((_, pageIndex) => (
+          <div className="label-sheet" key={pageIndex}>
+            {Array.from({ length: 44 }).map((_, i) => {
+              const index = pageIndex * 44 + i;
+              return (
+                <div className="label" key={index}>
+                  {codes[index] ? (
+                    <>
+                      <QRCodeSVG
+                        value={codes[index]}
+                        size={64}
+                        level="H"
+                        includeMargin={false}
+                        fgColor={qrColor}
+                      />
+                      <div className="code-text-box">
+                        <div
+                          style={{ color: skuColor }}
+                          className="code-text-code"
+                        >
+                          {codes[index]}
+                        </div>
+                        <div>
+                          <h2
+                            style={{ color: brandColor }}
+                            className="code-text1"
+                          >
+                            CHIBA PC MART <br />{" "}
+                            <span className="code-text2">chibapcmart.com</span>
+                          </h2>
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    <input
+                      placeholder="Enter Code"
+                      value={codes[index] || ""}
+                      onChange={(e) => handleInputChange(index, e.target.value)}
                     />
-                    <div className="code-text">{codes[index]}</div>
-                  </>
-                ) : (
-                  <input
-                    placeholder="Enter Code"
-                    value={codes[index] || ""}
-                    onChange={(e) => handleInputChange(index, e.target.value)}
-                  />
-                )}
-              </div>
-            );
-          })}
-          {/* <div className="page-footer">
+                  )}
+                </div>
+              );
+            })}
+            {/* <div className="page-footer">
             Page {pageIndex + 1} of {pages}
           </div> */}
-        </div>
-      ))}
-    </div>
+          </div>
+        ))}
+      </div>
+    </>
   );
 };
 
